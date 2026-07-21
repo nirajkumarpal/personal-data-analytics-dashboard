@@ -1,8 +1,12 @@
 ﻿import os
 from flask import Flask, send_from_directory
 from flask_cors import CORS
-from config import Config
-from models import db
+from backend.config import Config
+from backend.models import db
+from flask_migrate import Migrate
+
+# Create the Migrate instance (initialized with app in create_app)
+migrate = Migrate()
 
 
 def create_app():
@@ -30,12 +34,14 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)
+    # Initialize migration support
+    migrate.init_app(app, db)
 
     # Register Blueprints
-    from routes.auth_routes import auth_bp
-    from routes.log_routes import log_bp
-    from routes.analytics_routes import analytics_bp
-    from routes.goal_routes import goals_bp
+    from backend.routes.auth_routes import auth_bp
+    from backend.routes.log_routes import log_bp
+    from backend.routes.analytics_routes import analytics_bp
+    from backend.routes.goal_routes import goals_bp
 
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(log_bp, url_prefix='/api/logs')

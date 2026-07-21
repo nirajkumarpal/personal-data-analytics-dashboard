@@ -50,7 +50,6 @@ personal_analytics.db
 
 # Environment variables
 .env
-.env.*
 secrets.env
 
 # Logs

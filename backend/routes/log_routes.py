@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import db, DailyLog, Task
+from backend.models import db, DailyLog, Task
 from datetime import datetime
 from sqlalchemy.orm import joinedload
 

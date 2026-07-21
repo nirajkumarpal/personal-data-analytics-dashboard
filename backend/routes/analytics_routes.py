@@ -1,10 +1,10 @@
 from flask import Blueprint, request, jsonify
-from models import DailyLog
+from backend.models import DailyLog
 from sqlalchemy.orm import joinedload
-from analytics.insights import (
+from backend.analytics.insights import (
     calculate_productivity_score,
     generate_smart_insights,
-    generate_weekly_summary
+    generate_weekly_summary,
 )
 
 analytics_bp = Blueprint('analytics_bp', __name__, url_prefix='/api/analytics')
