@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Personal Analytics Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-body">
+    <nav class="navbar">
+        <div class="logo">Analytics<span>Pro</span></div>
+        <div class="user-greeting">Welcome, <span id="username-display">User</span>!</div>
+        <button id="logout-btn" class="btn btn-outline">Logout</button>
+    </nav>
+
+    <div class="container main-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="nav-links">
+                <li class="active" data-target="dashboard-view">📊 Dashboard</li>
+                <li data-target="add-log-view">✏️ Log Activity</li>
+                <li data-target="history-view">📅 History</li>
+                <li data-target="goals-view">🎯 Goals</li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area">
+
+            <!-- ===== DASHBOARD VIEW ===== -->
+            <section id="dashboard-view" class="view-section active">
+                <header class="section-header">
+                    <h2>Your Analytics Overview</h2>
+                    <p>Track your productivity and mental wellbeing</p>
+                </header>
+
+                <!-- Productivity Score Hero -->
+                <div class="productivity-hero">
+                    <div class="score-ring">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="score-bg" cx="50" cy="50" r="45"/>
+                            <circle class="score-fill" id="score-circle" cx="50" cy="50" r="45"/>
+                        </svg>
+                        <div class="score-text">
+                            <span id="productivity-score">0</span>
+                            <small>/100</small>
+                        </div>
+                    </div>
+                    <div class="score-info">
+                        <h3>Productivity Score</h3>
+                        <p>Based on study hours, screen time, and mood</p>
+                        <div class="score-formula">Score = (Study ÷ (Screen + 1)) × Mood</div>
+                    </div>
+                </div>
+
+                <!-- Smart Insights -->
+                <div class="card insights-card">
+                    <h3>💡 Smart Insights</h3>
+                    <ul id="insights-list" class="insights-list"></ul>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-title">Total Study Hours</div><div class="stat-value" id="stat-study">0</div></div>
+                    <div class="stat-card"><div class="stat-title">Total Screen Time</div><div class="stat-value" id="stat-screen">0</div></div>
+                    <div class="stat-card"><div class="stat-title">Average Mood</div><div class="stat-value" id="stat-mood">0</div></div>
+                    <div class="stat-card"><div class="stat-title">Productive Days</div><div class="stat-value" id="stat-productive">0</div></div>
+                    <div class="stat-card"><div class="stat-title">Task Completion</div><div class="stat-value" id="stat-task-completion">0%</div></div>
+                </div>
+
+                <!-- Weekly Summary -->
+                <div class="card weekly-summary-card">
+                    <h3>📅 Weekly Summary</h3>
+                    <div class="weekly-grid" id="weekly-summary">
+                        <div class="weekly-item best"><div class="weekly-label">🏆 Best Day</div><div class="weekly-value" id="ws-best">—</div></div>
+                        <div class="weekly-item worst"><div class="weekly-label">📉 Worst Day</div><div class="weekly-value" id="ws-worst">—</div></div>
+                        <div class="weekly-item"><div class="weekly-label">Avg Study</div><div class="weekly-value" id="ws-avg-study">0 hrs</div></div>
+                        <div class="weekly-item"><div class="weekly-label">Avg Screen</div><div class="weekly-value" id="ws-avg-screen">0 hrs</div></div>
+                    </div>
+                </div>
+
+                <!-- Trend Chart -->
+                <div class="charts-container">
+                    <div class="chart-wrapper"><canvas id="trendsChart"></canvas></div>
+                </div>
+            </section>
+
+            <!-- ===== LOG ACTIVITY VIEW ===== -->
+            <section id="add-log-view" class="view-section" style="display:none;">
+                <header class="section-header"><h2>Log Daily Activity</h2><p>Record your metrics for today</p></header>
+                <div class="card form-card">
+                    <form id="add-log-form">
+                        <div class="form-group"><label>Date</label><input type="date" id="log-date" required></div>
+                        <div class="form-group grid-2">
+                            <div><label>Study Hours</label><input type="number" id="log-study" step="0.5" min="0" max="24" required></div>
+                            <div><label>Screen Time (Hours)</label><input type="number" id="log-screen" step="0.5" min="0" max="24" required></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mood (1 = Terrible, 10 = Great)</label>
+                            <input type="range" id="log-mood" min="1" max="10" value="5">
+                            <span id="mood-val" class="range-val">5</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Tasks for this day (one per line)</label>
+                            <textarea id="log-tasks" rows="4" placeholder="Finish DSA assignment&#10;Revise DBMS chapter&#10;Workout 30 min"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Save Log</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ===== HISTORY VIEW ===== -->
+            <section id="history-view" class="view-section" style="display:none;">
+                <header class="section-header"><h2>Past Logs</h2><p>View, edit, or delete your history</p></header>
+                <div class="card table-card table-responsive">
+                    <table class="history-table">
+                        <thead><tr><th>Date</th><th>Study (hrs)</th><th>Screen (hrs)</th><th>Mood</th><th>Tasks</th><th>Task Progress</th><th>Productivity</th><th>Actions</th></tr></thead>
+                        <tbody id="history-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ===== GOALS VIEW ===== -->
+            <section id="goals-view" class="view-section" style="display:none;">
+                <header class="section-header"><h2>🎯 Goal Tracking</h2><p>Set your daily study target and track progress</p></header>
+                <div class="card form-card">
+                    <form id="goal-form">
+                        <div class="form-group">
+                            <label>Daily Study Goal (hours)</label>
+                            <input type="number" id="goal-input" step="0.5" min="1" max="16" value="6" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Set Goal</button>
+                    </form>
+                </div>
+                <div class="card goal-progress-card" style="margin-top:1.5rem;">
+                    <h3>Today's Progress</h3>
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar"><div class="progress-fill" id="goal-progress-fill"></div></div>
+                        <span class="progress-text" id="goal-progress-text">0%</span>
+                    </div>
+                    <p id="goal-message" class="goal-message"></p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content card">
+            <h3>Edit Log</h3>
+            <form id="edit-log-form">
+                <input type="hidden" id="edit-log-id">
+                <div class="form-group"><label>Study Hours</label><input type="number" id="edit-study" step="0.5" min="0" max="24" required></div>
+                <div class="form-group"><label>Screen Time</label><input type="number" id="edit-screen" step="0.5" min="0" max="24" required></div>
+                <div class="form-group"><label>Mood (1-10)</label><input type="number" id="edit-mood" min="1" max="10" required></div>
+                <div class="form-group grid-2">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Action Successful!</div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
