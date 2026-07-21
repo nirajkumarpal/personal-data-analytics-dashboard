@@ -64,7 +64,16 @@ def create_app():
     def test_connection():
         return {"message": "Backend is running and connected to the database!"}
 
-    with app.app_context():
+    # In development it's convenient to auto-create tables. In production,
+    # rely on migrations (Flask-Migrate / Alembic) and do not call create_all()
+    run_create_all = (
+        app.config.get('DEBUG', False)
+        or os.environ.get('FLASK_ENV') == 'development'
+        or os.environ.get('AUTO_CREATE_DB', '0') == '1'
+    )
+
+    if run_create_all:
+        app.logger.info('Running db.create_all() because DEBUG/development is enabled.')
         db.create_all()
 
     return app
@@ -77,4 +86,8 @@ if __name__ == '__main__':
     debug = bool(os.environ.get('FLASK_DEBUG', app.config.get('DEBUG', False)))
     print('Personal Analytics App is running.')
     print(f'Open this link in browser -> http://127.0.0.1:{port}/')
+    # Configure simple logging for local runs
+    import logging
+
+    logging.basicConfig(level=logging.DEBUG if debug else logging.INFO)
     app.run(host='0.0.0.0', port=port, debug=debug)

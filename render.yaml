@@ -10,3 +10,6 @@ services:
         value: ""
       - key: DATABASE_URL
         value: "sqlite:///personal_analytics.db"
+    autoDeploy: true
+    healthCheckPath: "/api/test-connection"
+    pythonVersion: "3.11"
