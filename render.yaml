@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: personal-analytics
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 120"
+    envVars:
+      - key: SECRET_KEY
+        value: ""
+      - key: DATABASE_URL
+        value: "sqlite:///personal_analytics.db"
