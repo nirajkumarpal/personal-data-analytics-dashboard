@@ -16,13 +16,13 @@ The following screenshots showcase the core user experience and interface qualit
 
 ### Application Preview
 
-| Dashboard View | Analytics View |
+| Dashboard View | Logs and Activity |
 |---|---|
-| ![Dashboard](output-image/1.png) | ![Analytics](output-image/3.png) |
+| ![Dashboard](output-image/1.png) | ![Logs and Activity](output-image/3.png) |
 
-| Goals and Progress | Logs and Activity |
+| History | Goals and Progress 
 |---|---|
-| ![Goals and Progress](output-image/4.png) | ![Logs and Activity](output-image/5.png) |
+| ![History](output-image/4.png) | | ![Goals and Progress](output-image/5.png) | 
 
 Note: These screenshots are captured from the working project to help reviewers quickly assess UI quality and feature coverage.
 
