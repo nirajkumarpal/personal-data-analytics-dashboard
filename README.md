@@ -20,7 +20,7 @@ The following screenshots showcase the core user experience and interface qualit
 |---|---|
 | ![Dashboard](output-image/1.png) | ![Logs and Activity](output-image/3.png) |
 
-| History | Goals and Progress 
+| History | Goals and Progress |
 |---|---|
 | ![History](output-image/4.png) | | ![Goals and Progress](output-image/5.png) | 
 
