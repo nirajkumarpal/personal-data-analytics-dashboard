@@ -22,7 +22,7 @@ The following screenshots showcase the core user experience and interface qualit
 
 | History | Goals and Progress |
 |---|---|
-| ![History](output-image/4.png) | | ![Goals and Progress](output-image/5.png) | 
+| ![History](output-image/4.png) | ![Goals and Progress](output-image/5.png) |
 
 Note: These screenshots are captured from the working project to help reviewers quickly assess UI quality and feature coverage.
 
