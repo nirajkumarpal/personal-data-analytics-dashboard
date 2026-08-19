@@ -10,8 +10,21 @@ A lightweight analytics app to track daily study hours, screen time, mood, and t
 
 Live demo: None (local run / Docker-ready)
 
-Screenshots
-- Placeholder dashboard screenshot: docs/assets/screenshot-dashboard.png
+## Screenshots
+
+The following screenshots showcase the core user experience and interface quality of the project.
+
+### Application Preview
+
+| Dashboard View | Analytics View |
+|---|---|
+| ![Dashboard](output-image/1.png) | ![Analytics](output-image/3.png) |
+
+| Goals and Progress | Logs and Activity |
+|---|---|
+| ![Goals and Progress](output-image/4.png) | ![Logs and Activity](output-image/5.png) |
+
+Note: These screenshots are captured from the working project to help reviewers quickly assess UI quality and feature coverage.
 
 Features
 - User registration and login (secure password hashing)
